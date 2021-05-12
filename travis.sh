@@ -11,6 +11,8 @@ if [ -n "$server_branch" ] ; then
   git clone -b ${server_branch} https://github.com/mariadb/server ../workdir-server
   cd ../workdir-server
   # We want the current C/C build as libmariadb
+  git submodule sync
+  git submodule update
   cd libmariadb
   ls -lrt
   echo ${TRAVIS_COMMIT}
