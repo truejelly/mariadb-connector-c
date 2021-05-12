@@ -10,10 +10,7 @@ if [ -n "$server_branch" ] ; then
   echo "run server test suite"
   git clone -b ${server_branch} https://github.com/mariadb/server ../workdir-server
   cd ../workdir-server
-  # don't pull in submodules. We want the latest C/C as libmariadb
-  # build latest server with latest C/C as libmariadb
-  # skip to build some storage engines to speed up the build
-  cmake . -DPLUGIN_MROONGA=NO -DPLUGIN_ROCKSDB=NO -DPLUGIN_SPIDER=NO -DPLUGIN_TOKUDB=NO
+  # We want the current C/C build as libmariadb
   cd libmariadb
   ls -lrt
   echo ${TRAVIS_COMMIT}
@@ -21,6 +18,9 @@ if [ -n "$server_branch" ] ; then
   ls -lrt
   cd ..
   git add libmariadb
+
+  # skip to build some storage engines to speed up the build
+  cmake . -DPLUGIN_MROONGA=NO -DPLUGIN_ROCKSDB=NO -DPLUGIN_SPIDER=NO -DPLUGIN_TOKUDB=NO
   make -j9
   cd mysql-test/
   ./mysql-test-run.pl --suite=main ${TEST_OPTION} --parallel=1 --skip-test=session_tracker_last_gtid
