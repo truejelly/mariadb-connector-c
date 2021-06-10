@@ -16,10 +16,12 @@ if [ -n "$server_branch" ] ; then
   git add libmariadb
 
   # skip to build some storage engines to speed up the build
-  cmake . -DPLUGIN_MROONGA=NO -DPLUGIN_ROCKSDB=NO -DPLUGIN_SPIDER=NO -DPLUGIN_TOKUDB=NO
+  mkdir bld
+  cd bld
+  cmake .. -DPLUGIN_MROONGA=NO -DPLUGIN_ROCKSDB=NO -DPLUGIN_SPIDER=NO -DPLUGIN_TOKUDB=NO
   make -j9
   cd mysql-test/
-  ./mysql-test-run.pl --suite=main ${TEST_OPTION} --parallel=1 --skip-test=session_tracker_last_gtid
+  ./mysql-test-run.pl --suite=main ${TEST_OPTION} --parallel=5 --skip-test=session_tracker_last_gtid
 
 else
 
