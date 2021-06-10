@@ -68,4 +68,4 @@ jobs:
 
 script: ./travis.sh
 
-after_failure: tail -500 /home/travis/build/mariadb-corporation/workdir-server/mysql-test/var/log/connect.log
+after_failure: tail -500 /home/travis/build/mariadb-corporation/workdir-server/mysql-test/var/log/mysqld.1.err
