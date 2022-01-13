@@ -220,6 +220,7 @@ IF(WITH_EXTERNAL_ZSTD)
   ENDIF()
 ELSE()
   ADD_SUBDIRECTORY(external/zstd)
+  INCLUDE_DIRECTORIES(external/zstd/lib)
   SET(ZSTD_LIBRARY zstd)
 ENDIF()
 
