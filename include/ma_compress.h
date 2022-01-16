@@ -19,8 +19,6 @@
 *************************************************************************************/
 #ifndef __ma_compress_h__
 
-#include <zlib.h>
-#include <zstd.h>
 #include <ma_sys.h>
 
 #define COMPRESSION_LEVEL_DEFAULT INT_MAX
