@@ -20,9 +20,7 @@ if [ -n "$server_branch" ] ; then
   # don't pull in submodules. We want the latest C/C as libmariadb
   # build latest server with latest C/C as libmariadb
   # skip to build some storage engines to speed up the build
-  mkdir bld
-  cd bld
-  cmake .. -DPLUGIN_MROONGA=NO -DPLUGIN_ROCKSDB=NO -DPLUGIN_SPIDER=NO -DPLUGIN_TOKUDB=NO
+  cmake  -DPLUGIN_MROONGA=NO -DPLUGIN_ROCKSDB=NO -DPLUGIN_SPIDER=NO -DPLUGIN_TOKUDB=NO
   cd libmariadb
     echo "PR:${TRAVIS_PULL_REQUEST} TRAVIS_COMMIT:${TRAVIS_COMMIT}"
   if [ -n "$TRAVIS_PULL_REQUEST" ] && [ "$TRAVIS_PULL_REQUEST" != "false" ] ; then
@@ -33,16 +31,15 @@ if [ -n "$server_branch" ] ; then
     git checkout PR_${TRAVIS_PULL_REQUEST}
   else
     echo "checkout commit"
+    cd ..
     mkdir tmp
     cd tmp
     wget https://github.com/mariadb-corporation/mariadb-connector-c/archive/${TRAVIS_COMMIT}.zip
     unzip ${TRAVIS_COMMIT}.zip
     cp mariadb-connector-c-${TRAVIS_COMMIT}/* ../../libmariadb -r
     cd ..
-    rm bld -rf
-    cd ..
-    git add libmariadb
-    cd bld
+    rm tmp -rf
+    git add ../libmariadb
   fi
 
   make -j9
