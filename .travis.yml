@@ -64,9 +64,7 @@ jobs:
       env: srv=skysql
     - if: type = push AND fork = false
       env: srv=skysql-ha
-    - env: server_branch=10.6
-    - env: server_branch=10.6 TEST_OPTION=--ps-protocol
-    - env: server_branch=10.7
-    - env: server_branch=10.7 TEST_OPTION=--ps-protocol
+    - env: server_branch=10.8
+    - env: server_branch=10.8 TEST_OPTION=--ps-protocol
 
 script: ./travis.sh
