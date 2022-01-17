@@ -26,7 +26,7 @@ if [ -n "$server_branch" ] ; then
   mkdir tmp
   mkdir bld
   cd bld
-  cmake  -DPLUGIN_MROONGA=NO -DPLUGIN_ROCKSDB=NO -DPLUGIN_SPIDER=NO -DPLUGIN_TOKUDB=NO
+  cmake .. -DPLUGIN_MROONGA=NO -DPLUGIN_ROCKSDB=NO -DPLUGIN_SPIDER=NO -DPLUGIN_TOKUDB=NO
   cd $SERVER_DIR/tmp
   echo "PR:${TRAVIS_PULL_REQUEST} TRAVIS_COMMIT:${TRAVIS_COMMIT}"
   if [ -n "$TRAVIS_PULL_REQUEST" ] && [ "$TRAVIS_PULL_REQUEST" != "false" ] ; then
@@ -43,7 +43,7 @@ if [ -n "$server_branch" ] ; then
   rm tmp -rf
   git add libmariadb
 
-  cd $SEVER_DIR/bld
+  cd $SERVER_DIR/bld
   make -j9
 
   cd mysql-test/
