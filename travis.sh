@@ -12,6 +12,7 @@ if [ -n "$server_branch" ] ; then
   # change travis localhost to use only 127.0.0.1
   sudo sed -i 's/127\.0\.1\.1 localhost/127.0.0.1 localhost/' /etc/hosts
   sudo tail /etc/hosts
+  pwd
 
   # get latest server
   git clone -b ${server_branch} https://github.com/mariadb/server ../workdir-server --depth=1
