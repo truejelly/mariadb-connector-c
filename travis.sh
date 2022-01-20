@@ -2,7 +2,7 @@
 
 set -e
 
-SET CC_DIR=/home/travis/build/mariadb-corporation/mariadb-connector-c
+export CC_DIR=/home/travis/build/mariadb-corporation/mariadb-connector-c
 if [ -n "$server_branch" ] ; then
 
   ###################################################################################################################
