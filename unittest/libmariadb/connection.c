@@ -2026,11 +2026,7 @@ static int test_conn_str_1(MYSQL *my __attribute__((unused)))
                 hostname ? hostname : "localhost", username ? username : "", 
                 password ? password : "", port, socketname ? socketname : "");
 
-  /* SkySQL requires secure connection */
-  if (IS_SKYSQL(hostname))
-  {
-    strcat(conn_str, ";ssl_enforce=1");
-  }
+  strcat(conn_str, ";ssl_enforce=1");
 
   fprintf(fp, "[client]\n");
   fprintf(fp, "%s\n", conn_str);

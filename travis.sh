@@ -2,6 +2,7 @@
 
 set -e
 
+SET CC_DIR=/home/travis/build/mariadb-corporation/mariadb-connector-c
 if [ -n "$server_branch" ] ; then
 
   ###################################################################################################################
@@ -12,7 +13,6 @@ if [ -n "$server_branch" ] ; then
   # change travis localhost to use only 127.0.0.1
   sudo sed -i 's/127\.0\.1\.1 localhost/127.0.0.1 localhost/' /etc/hosts
   sudo tail /etc/hosts
-  pwd
 
   # get latest server
   git clone -b ${server_branch} https://github.com/mariadb/server ../workdir-server --depth=1
@@ -37,11 +37,8 @@ if [ -n "$server_branch" ] ; then
     echo "checkout commit"
   fi
 
-  wget https://github.com/mariadb-corporation/mariadb-connector-c/archive/${TRAVIS_COMMIT}.zip
-  unzip ${TRAVIS_COMMIT}.zip
-  cp mariadb-connector-c-${TRAVIS_COMMIT}/* $SERVER_DIR/libmariadb -r
+  cp $CC_DIR/* $SERVER_DIR/libmariadb -r
   cd $SERVER_DIR
-  rm tmp -rf
   git add libmariadb
 
   cd $SERVER_DIR/bld
@@ -57,7 +54,9 @@ else
   ###################################################################################################################
   echo "run connector test suite"
 
-  cmake . -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCERT_PATH=${SSLCERT}
+  mkdir bld
+  cd bld
+  cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCERT_PATH=${SSLCERT}
 
   if [ "$TRAVIS_OS_NAME" = "windows" ] ; then
     echo "build from windows"
