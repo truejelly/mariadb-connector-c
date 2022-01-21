@@ -39,8 +39,6 @@ jobs:
     - env: srv=maxscale
     - env: srv=skysql
     - env: srv=skysql-ha
-      os: windows
-      language: shell
   include:
     - env: srv=mariadb v=10.5
       os: windows
